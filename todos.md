@@ -1,0 +1,3 @@
+- [ ] Parse every option
+- [ ] Write a helper function for every option
+- [ ] 

@@ -1,0 +1,16 @@
+{
+  "marks": [
+    {
+      "mark": "2a",
+      "path": "/filepath/filepath"
+    },
+    {
+      "mark": "2b",
+      "path": "/filepath/filepath"
+    },
+    {
+      "mark": "m",
+      "path": "/filepath/filepath"
+    }
+  ]
+}
