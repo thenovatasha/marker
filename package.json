@@ -2,10 +2,17 @@
   "name": "marker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/marker.js",
   "scripts": {
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "marker": "./dist/marker.js"
+  },
+  "pkg": {
+    "targets": ["node18-linux-x64", "node18-macos-x64", "node18-win-x64"],
+    "outputPath": "binaries"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +21,7 @@
   "devDependencies": {
     "@tsconfig/node24": "^24.0.1",
     "@types/node": "^24.5.2",
+    "pkg": "^5.8.1",
     "typescript": "^5.9.2"
   },
   "dependencies": {
