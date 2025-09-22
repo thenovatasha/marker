@@ -15,7 +15,7 @@ A simple yet powerful command-line tool for managing directory navigation by set
 ### From npm
 
 ```bash
-npm install -g marker
+npm install -g @thenovatasha/marker
 ```
 
 ### From source
@@ -27,6 +27,49 @@ npm install
 npm run build
 npm link
 ```
+## 🔧 Shell Integration
+
+For even faster navigation, you can create shell aliases or functions:
+
+### Bash/Zsh
+
+Add to your `~/.bashrc` or `~/.zshrc`:
+
+```bash
+# Quick navigation to marks
+goto() {
+    local path=$(marker get "$1" 2>/dev/null)
+    if [ $? -eq 0 ]; then
+        cd "$path"
+    else
+        echo "Mark '$1' not found"
+        return 1
+    fi
+}
+```
+
+Usage:
+```bash
+marker mark work   # Mark current directory as 'work'
+goto work          # Navigate to 'work' mark
+```
+
+### Fish Shell
+
+Add to your `~/.config/fish/config.fish`:
+
+```fish
+function goto
+    set path (marker get $argv[1] 2>/dev/null)
+    if test $status -eq 0
+        cd $path
+    else
+        echo "Mark '$argv[1]' not found"
+        return 1
+    end
+end
+```
+
 
 ## 🔧 Usage
 
@@ -61,22 +104,6 @@ marker ls
 #   temp → /tmp/scratch
 ```
 
-### Get a mark's path
-
-Retrieve the full path to a marked directory:
-
-```bash
-marker get work
-# /home/user/projects/work-stuff
-```
-
-This is particularly useful for shell navigation:
-
-```bash
-cd $(marker get work)
-# or
-cd `marker get work`
-```
 
 ### Remove a mark
 
@@ -88,6 +115,22 @@ marker rm work
 #   Path was: /home/user/projects/work-stuff
 ```
 
+### Get a mark's path
+
+Retrieve the full path to a marked directory:
+
+```bash
+marker get work
+# /home/user/projects/work-stuff
+```
+This is particularly useful for shell navigation:
+
+```bash
+cd $(marker get work)
+# or
+cd `marker get work`
+```
+
 ## 📋 Commands
 
 | Command | Description | Options |
@@ -97,57 +140,7 @@ marker rm work
 | `marker get <name>` | Get the full path to a mark | |
 | `marker rm <name>` | Remove a mark | |
 
-## 🔧 Shell Integration
 
-For even faster navigation, you can create shell aliases or functions:
-
-### Bash/Zsh
-
-Add to your `~/.bashrc` or `~/.zshrc`:
-
-```bash
-# Quick navigation to marks
-goto() {
-    local path=$(marker get "$1" 2>/dev/null)
-    if [ $? -eq 0 ]; then
-        cd "$path"
-    else
-        echo "Mark '$1' not found"
-        return 1
-    fi
-}
-
-# Mark current directory
-here() {
-    marker mark "$1" "$@"
-}
-```
-
-Usage:
-```bash
-here work           # Mark current directory as 'work'
-goto work          # Navigate to 'work' mark
-```
-
-### Fish Shell
-
-Add to your `~/.config/fish/config.fish`:
-
-```fish
-function goto
-    set path (marker get $argv[1] 2>/dev/null)
-    if test $status -eq 0
-        cd $path
-    else
-        echo "Mark '$argv[1]' not found"
-        return 1
-    end
-end
-
-function here
-    marker mark $argv
-end
-```
 
 ## 🛠️ Development
 
@@ -192,7 +185,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - Mark categories and tags
 - Auto-completion for mark names
 - Integration with popular file managers
-
 ---
 
 Made with ❤️ by  [Nova Tasha](https://github.com/thenovatasha)
